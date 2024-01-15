@@ -1,1 +1,1 @@
-Clone of the popular Airbnb mboile application. 
+Clone of the popular Airbnb mobile application.
