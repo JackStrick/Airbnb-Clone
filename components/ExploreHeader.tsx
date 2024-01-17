@@ -23,16 +23,16 @@ const categories = [
 		icon: "house-siding",
 	},
 	{
+		name: "City",
+		icon: "apartment",
+	},
+	{
 		name: "Trending",
 		icon: "local-fire-department",
 	},
 	{
 		name: "Play",
 		icon: "videogame-asset",
-	},
-	{
-		name: "City",
-		icon: "apartment",
 	},
 	{
 		name: "Beachfront",
@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		paddingBottom: 8,
+		gap: 4,
 	},
 	categoriesBtnActive: {
 		flex: 1,
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 8,
 		borderBottomWidth: 2,
 		borderBottomColor: "#000",
+		gap: 4,
 	},
 });
 
