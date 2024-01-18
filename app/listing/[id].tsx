@@ -110,7 +110,7 @@ const Page = () => {
 		return {
 			opacity: interpolate(
 				scrollOffset.value,
-				[0, IMG_HEIGHT / 1.25],
+				[0, IMG_HEIGHT / 1.4],
 				[0, 1]
 			),
 		};

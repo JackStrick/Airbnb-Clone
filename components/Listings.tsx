@@ -8,24 +8,35 @@ import {
 	Image,
 	Touchable,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
 import { Link } from "expo-router";
 import { Listing } from "@/interfaces/listing";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
+import {
+	BottomSheetFlatListMethods,
+	BottomSheetFlatList,
+} from "@gorhom/bottom-sheet";
 
 interface Props {
 	listings: any[];
 	category: string;
+	refresh: number;
 }
 
-const Listings = ({ listings: items, category }: Props) => {
-	const [loading, setLoading] = React.useState(false);
+const Listings = ({ listings: items, category, refresh }: Props) => {
+	const [loading, setLoading] = useState(false);
 
 	// For scrolling list from code
-	const listRef = useRef<FlatList>(null);
+	const listRef = useRef<BottomSheetFlatListMethods>(null);
+
+	useEffect(() => {
+		if (refresh) {
+			listRef.current?.scrollToOffset({ offset: 0, animated: true });
+		}
+	}, [refresh]);
 
 	useEffect(() => {
 		// There is no current backend calls for data from a backend,
@@ -86,10 +97,16 @@ const Listings = ({ listings: items, category }: Props) => {
 
 	return (
 		<View style={defaultStyles.container}>
-			<FlatList
+			<BottomSheetFlatList
 				renderItem={renderRow}
 				ref={listRef}
 				data={loading ? [] : items}
+				ListHeaderComponent={
+					<Text style={styles.info}>
+						{items.length < 1000 ? items.length : "Over 1,000"}{" "}
+						{category}
+					</Text>
+				}
 			/>
 		</View>
 	);
@@ -105,6 +122,12 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: 350,
 		borderRadius: 10,
+	},
+	info: {
+		textAlign: "center",
+		fontFamily: "mon-sb",
+		fontSize: 16,
+		marginTop: 4,
 	},
 });
 
